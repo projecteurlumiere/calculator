@@ -3,6 +3,7 @@
 let firstVariable = "";
 let secondVariable = "";
 let operator = "";
+let tempVariable = "";
 let = operatorClicked = false;
 let = equalClicked = false;
 const numberButtons = document.getElementsByClassName("number");
@@ -30,9 +31,10 @@ function operate(a, operator, b){
 
 function display(){
     displayCurrent.innerHTML = firstVariable;
-    displayCurrent.innerHTML += ` ${operator}`;
-    displayPrevious.innerHTML = secondVariable;
-    displayPrevious.innerHTML += ` ${operator}`;  
+    displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable}`;
+    if (equalClicked == true) {
+        displayPrevious.innerHTML += " =";
+    }
 }
 
 // input numbers:
@@ -57,8 +59,12 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 // equal:
 
 equalButton.addEventListener("click", () =>{
+    tempVariable = firstVariable;
     firstVariable = operate(secondVariable, operator, firstVariable);
+    equalClicked = true;
     display();
+    equalClicked = false;
+    tempVariable = "";
 })
 
 
