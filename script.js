@@ -13,6 +13,7 @@ const displayPrevious = document.getElementsByClassName("previous")[0];
 const displayCurrent = document.getElementsByClassName("current")[0];
 const equalButton = document.getElementById("equal");
 const clearButton = document.getElementById("clear");
+const backspaceButton = document.getElementById("backspace");
 
 
 // operate function:
@@ -61,7 +62,7 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 
 // equal:
 
-equalButton.addEventListener("click", () =>{
+equalButton.addEventListener("click", () => {
     tempVariable = firstVariable;
     firstVariable = operate(secondVariable, operator, firstVariable);
     equalClicked = true;
@@ -72,6 +73,14 @@ equalButton.addEventListener("click", () =>{
     secondVariable = firstVariable;
 })
 
+// backspace:
+
+backspaceButton.addEventListener("click", () => {
+    if (operatorClicked == true) {
+    firstVariable = firstVariable.slice(0, -1);
+    display();
+    }
+})
 
 // clear:
 
