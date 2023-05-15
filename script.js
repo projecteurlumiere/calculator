@@ -4,6 +4,7 @@ let firstVariable = "";
 let secondVariable = "";
 let operator = "";
 let tempVariable = "";
+let tempVariableTwo = "";
 let = operatorClicked = false;
 let = equalClicked = false;
 const numberButtons = document.getElementsByClassName("number");
@@ -49,11 +50,13 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
 // input operator:
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
-    console.log(button.textContent);
+    if (operatorClicked == true) firstVariable = tempVariableTwo;
     operator = button.textContent;
     secondVariable = firstVariable;
     display();
+    tempVariableTwo = firstVariable;
     firstVariable = "";
+    operatorClicked = true;
 }))
 
 // equal:
@@ -64,7 +67,9 @@ equalButton.addEventListener("click", () =>{
     equalClicked = true;
     display();
     equalClicked = false;
+    operatorClicked = false;
     tempVariable = "";
+    secondVariable = firstVariable;
 })
 
 
@@ -74,5 +79,9 @@ clearButton.addEventListener("click", () => {
     firstVariable = "";
     secondVariable = "";
     operator = "";
+    tempVariable = "";
+    tempVariableTwo = "";
+    equalClicked = false;
+    operatorClicked = false;
     display()
 });
