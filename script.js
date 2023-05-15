@@ -1,11 +1,12 @@
 // TODO: zero cannot be in the beginning DONE
-// TODO2: zero at the start of the program
+// TODO2: zero at the start of the program DONE
+// TODO2.5: adjust equal behaviour
 // TODO3: disable forbidden buttons (point, disableall on error?)
 // TODO4: line 60 - revise?
 
 // variables:
 
-let firstVariable = "";
+let firstVariable = "0";
 let secondVariable = "";
 let operator = "";
 let tempVariable = "";
@@ -43,7 +44,9 @@ function display(){
     if (equalClicked == true) {
         displayPrevious.innerHTML += " =";
     }
-}
+};
+
+display();
 
 // input numbers:
 
@@ -105,7 +108,7 @@ backspaceButton.addEventListener("click", () => {
 // clear:
 
 clearButton.addEventListener("click", () => {
-    firstVariable = "";
+    firstVariable = "0";
     secondVariable = "";
     operator = "";
     tempVariable = "";
