@@ -7,6 +7,7 @@ let tempVariable = "";
 let tempVariableTwo = "";
 let = operatorClicked = false;
 let = equalClicked = false;
+let = numberClicked = false;
 const numberButtons = document.getElementsByClassName("number");
 const operatorButtons = document.getElementsByClassName("operator");
 const displayPrevious = document.getElementsByClassName("previous")[0];
@@ -19,8 +20,8 @@ const backspaceButton = document.getElementById("backspace");
 // operate function:
 
 function operate(a, operator, b){
-    a = parseInt(a, 10);
-    b = parseInt(b, 10);
+    a = parseFloat(a, 10);
+    b = parseFloat(b, 10);
     return operator === "+" ? a + b :
     operator === "-" ? a - b :
     operator === "*" ? a * b :
@@ -45,13 +46,23 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
     firstVariable += button.textContent;
     console.log(button.textContent);
     display();
+    numberClicked = true;
 }))
 
 
 // input operator:
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
-    if (operatorClicked == true) firstVariable = tempVariableTwo;
+    if (operatorClicked == true && numberClicked == true) {
+        equal();
+        operator = button.textContent;
+        secondVariable = firstVariable;
+        tempVariableTwo = firstVariable;
+        firstVariable = "";
+        operatorClicked = true;
+        return
+    }
+    else if (operatorClicked == true) firstVariable = tempVariableTwo;
     operator = button.textContent;
     secondVariable = firstVariable;
     display();
@@ -62,24 +73,25 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 
 // equal:
 
-equalButton.addEventListener("click", () => {
+function equal(){
     tempVariable = firstVariable;
     firstVariable = operate(secondVariable, operator, firstVariable);
     equalClicked = true;
     display();
     equalClicked = false;
     operatorClicked = false;
+    numberClicked = false;
     tempVariable = "";
     secondVariable = firstVariable;
-})
+};
+
+equalButton.addEventListener("click", () => equal());
 
 // backspace:
 
 backspaceButton.addEventListener("click", () => {
-    if (operatorClicked == true) {
     firstVariable = firstVariable.slice(0, -1);
     display();
-    }
 })
 
 // clear:
@@ -92,5 +104,6 @@ clearButton.addEventListener("click", () => {
     tempVariableTwo = "";
     equalClicked = false;
     operatorClicked = false;
+    numberClicked = false;
     display()
 });
