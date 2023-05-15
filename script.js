@@ -1,3 +1,8 @@
+// TODO: zero cannot be in the beginning DONE
+// TODO2: zero at the start of the program
+// TODO3: disable forbidden buttons (point, disableall on error?)
+// TODO4: line 60 - revise?
+
 // variables:
 
 let firstVariable = "";
@@ -43,6 +48,9 @@ function display(){
 // input numbers:
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => {
+    if (firstVariable == "0" && button.textContent !=".") {
+        firstVariable = firstVariable.slice(0, -1);
+    }
     firstVariable += button.textContent;
     console.log(button.textContent);
     display();
@@ -105,5 +113,5 @@ clearButton.addEventListener("click", () => {
     equalClicked = false;
     operatorClicked = false;
     numberClicked = false;
-    display()
+    display();
 });
