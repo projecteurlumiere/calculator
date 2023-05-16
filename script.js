@@ -1,19 +1,3 @@
-// TODO: zero cannot be in the beginning DONE
-// TODO2: zero at the start of the program DONE
-// TODO2.5: adjust equal behavior DONE
-// TODO3: disable forbidden buttons (point, disable all on error?) DONE
-// TODO 3.25 anything else on error? DONE
-
-// TODO 3.21 after equal and new operator being pressed, 
-// the previous display should show nothing after the operator DONE
-
-
-// TODO 3.25 equal one variable without operator and second variable return that variable DONE;
-// TODO 3.3 backspace behavior = should return the same number if no operator present DONE;
-// TODO 3.5: add limit to variables;
-// TODO4: line 60 - revise?
-// TODO5: revise display - break it into some functions?
-
 // variables:
 
 let firstVariable = "0";

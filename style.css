@@ -1,11 +1,34 @@
 * {
+    overflow: hidden;
     box-sizing: border-box;
+}
+
+html
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+    background-color: aquamarine;
+}
+
+h1 {
+
 }
 
 main {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 5vh;
+    padding-bottom: 50vh;
+    background-color: palevioletred;
 }
 
 .calculator {
@@ -13,22 +36,36 @@ main {
     flex-direction: column;
     padding: 1rem;
     background-color: antiquewhite;
+    border: solid 10px rosybrown;
 }
 
 .screen {
     display: flex;
     flex-direction: column;
+    border: solid 1px red;
+    border-radius: 15px;
+    margin-bottom: 1rem;
 }
 
 .previous,
 .current {
     height: 5rem;
     width: 20rem;
-    border: solid 1px red;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 0.5rem;
 }
 
 .previous {
-    height: 3rem;
+    height: 2.5rem;
+    font-size: calc(2.5rem/3);
+    color: gray;
+}
+
+.current {
+    font-size: 2.5rem;
+
 }
 
 .rowsTop > div,
@@ -44,6 +81,8 @@ main {
 button {
     width: 5rem;
     height: 5rem;
+    border-radius: 5px;
+    font-size: 2rem;
 }
 
 #zero {
@@ -54,4 +93,16 @@ button {
 #equal {
     height: 10rem;
     width: 5rem;
+}
+
+#point:disabled {
+    pointer-events: all;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    height: 5vh;
+    width: 100vw;
+    background-color: beige;
 }
