@@ -55,8 +55,9 @@ display();
 
 // input numbers:
 
-Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => {
-    
+Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => inputNumbers(button)))
+
+function inputNumbers(button){
     if (equalClicked == true && operatorClicked == false) clear();
 
     equalClicked = false;
@@ -68,11 +69,13 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
     firstVariable += button.textContent;
     display();
     numberClicked = true;
-}))
+}
 
 // input operator:
 
-Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
+Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => inputOperator(button)));
+
+function inputOperator(button) {
     if (equalClicked == true) {
         tempVariable = "";
     }
@@ -88,14 +91,13 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
     else if (operatorClicked == true) firstVariable = tempVariableTwo;
 
     inputOperatorMisc(true, button);
-}))
+}
 
 // equal function:
 
 equalButton.addEventListener("click", () => equal());
 
 function equal(){
-
     if (firstVariable == NaN || firstVariable == undefined || firstVariable == "") firstVariable = secondVariable;
 
     if (equalClicked == true) {
@@ -121,7 +123,9 @@ function equal(){
 
 // backspace:
 
-backspaceButton.addEventListener("click", () => {
+backspaceButton.addEventListener("click", () => backspace())
+
+function backspace() {
     if (firstVariable == "ERROR") clear()
 
     else if (equalClicked == true && operatorClicked == false) {
@@ -134,7 +138,7 @@ backspaceButton.addEventListener("click", () => {
         cutLast()
         display();
     }
-})
+}
 
 // cutLast function:
 
