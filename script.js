@@ -2,6 +2,7 @@
 // TODO2: zero at the start of the program DONE
 // TODO2.5: adjust equal behavior DONE
 // TODO3: disable forbidden buttons (point, disable all on error?)
+// TODO 3.5: add limit to variables;
 // TODO4: line 60 - revise?
 
 // variables:
@@ -41,7 +42,15 @@ function operate(a, operator, b){
 // display function:
 
 function display(){
+    firstVariable = firstVariable.toString();
+
+    if (firstVariable.length == 0) firstVariable = "0";
+
     displayCurrent.innerHTML = firstVariable;
+
+    if (firstVariable.includes(".") == true) pointButton.disabled = true
+    else pointButton.disabled = false;
+
     displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable}`;
     if (equalClicked == true) {
         displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable} =`;
@@ -53,7 +62,7 @@ display();
 // input numbers:
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => {
-    if (equalClicked == true) clear();
+    if (equalClicked == true && operatorClicked == false) clear();
     equalClicked = false;
     if (firstVariable == "0" && button.textContent !=".") {
         firstVariable = firstVariable.slice(0, -1);
@@ -69,7 +78,6 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
     equalClicked = false;
-    numberClicked = false;
     if (operatorClicked == true && numberClicked == true) {
         equal();
         operator = button.textContent;
@@ -91,17 +99,15 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 // equal:
 
 function equal(){
+
+    if (firstVariable == NaN || firstVariable == undefined || firstVariable == "") firstVariable = secondVariable;
     if (equalClicked == true) {
         tempVariable = tempVariableThree;
         secondVariable = firstVariable;
         firstVariable = tempVariableThree;
         firstVariable = operate(secondVariable, operator, firstVariable);
         display();
-        console.log("firstVariable is " + firstVariable)
-        console.log("secondVariable is " + secondVariable)
-        console.log("tempVariable is " + tempVariable)
-        console.log("tempVariableTwo is " + tempVariableTwo)
-        console.log("tempVariableThree is " + tempVariableThree)
+
     }
     else {
         tempVariable = firstVariable;
@@ -113,11 +119,6 @@ function equal(){
         tempVariableThree = tempVariable;
         tempVariable = "";
         secondVariable = firstVariable;
-        console.log("firstVariable is " + firstVariable)
-        console.log("secondVariable is " + secondVariable)
-        console.log("tempVariable is " + tempVariable)
-        console.log("tempVariableTwo is " + tempVariableTwo)
-        console.log("tempVariableThree is " + tempVariableThree)
     }
 };
 
@@ -126,6 +127,7 @@ equalButton.addEventListener("click", () => equal());
 // backspace:
 
 backspaceButton.addEventListener("click", () => {
+    if (equalClicked == true && operatorClicked == false) clear();
     equalClicked = false;
     firstVariable = firstVariable.slice(0, -1);
     display();
