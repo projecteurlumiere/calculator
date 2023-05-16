@@ -7,6 +7,8 @@
 // TODO 3.21 after equal and new operator being pressed, 
 // the previous display should show nothing after the operator DONE
 
+
+// TODO 3.25 equal one variable without operator and second variable return that variable
 // TODO 3.3 backspace behaviour = should return the same number if no operator present
 // TODO 3.5: add limit to variables;
 // TODO4: line 60 - revise?
@@ -42,6 +44,7 @@ function operate(a, operator, b){
     operator === "*" ? a * b :
     operator === "/" && b === 0 ? "ERROR" :
     operator === "/" ? a / b :
+    operator === "" ? b :
     "ERROR"
 }
 
@@ -69,6 +72,9 @@ function display(){
     displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable}`;
     if (equalClicked == true) {
         displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable} =`;
+    }
+    if (operator == "" && firstVariable == secondVariable) {
+        displayPrevious.innerHTML = `${secondVariable} =`
     }
 };
 
