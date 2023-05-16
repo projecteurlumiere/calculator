@@ -34,7 +34,6 @@ const clearButton = document.getElementById("clear");
 const pointButton = document.getElementById("point");
 const backspaceButton = document.getElementById("backspace");
 
-
 // operate function:
 
 function operate(a, operator, b){
@@ -53,22 +52,11 @@ function operate(a, operator, b){
 
 function display(){
     firstVariable = firstVariable.toString();
-
     if (firstVariable.length == 0) firstVariable = "0";
 
     displayCurrent.innerHTML = firstVariable;
 
-    if (firstVariable == "ERROR") {
-        equalButton.disabled = true;
-        Array.from(operatorButtons).forEach(button => button.disabled = true);
-    }
-    else {
-        equalButton.disabled = false;
-        Array.from(operatorButtons).forEach(button => button.disabled = false);
-    }
-
-    if (firstVariable.includes(".") == true) pointButton.disabled = true
-    else pointButton.disabled = false;
+    disableButtons();
 
     displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable}`;
     if (equalClicked == true) {
@@ -84,17 +72,19 @@ display();
 // input numbers:
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => {
+    
     if (equalClicked == true && operatorClicked == false) clear();
+
     equalClicked = false;
+
     if (firstVariable == "0" && button.textContent !=".") {
-        firstVariable = firstVariable.slice(0, -1);
+        cutLast();
     }
+
     firstVariable += button.textContent;
-    console.log(button.textContent);
     display();
     numberClicked = true;
 }))
-
 
 // input operator:
 
@@ -107,29 +97,23 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 
     if (operatorClicked == true && numberClicked == true) {
         equal();
-        operator = button.textContent;
-        secondVariable = firstVariable;
-        tempVariableTwo = firstVariable;
-        firstVariable = "";
-        operatorClicked = true;
+        inputOperatorMisc(false, button);
         return
     }
 
     else if (operatorClicked == true) firstVariable = tempVariableTwo;
 
-    operator = button.textContent;
-    secondVariable = firstVariable;
-    display();
-    tempVariableTwo = firstVariable;
-    firstVariable = "";
-    operatorClicked = true;
+    inputOperatorMisc(true, button);
 }))
 
-// equal:
+// equal function:
+
+equalButton.addEventListener("click", () => equal());
 
 function equal(){
 
     if (firstVariable == NaN || firstVariable == undefined || firstVariable == "") firstVariable = secondVariable;
+
     if (equalClicked == true) {
         tempVariable = tempVariableThree;
         secondVariable = firstVariable;
@@ -151,24 +135,33 @@ function equal(){
     }
 };
 
-equalButton.addEventListener("click", () => equal());
-
 // backspace:
 
 backspaceButton.addEventListener("click", () => {
     if (firstVariable == "ERROR") clear()
+
     else if (equalClicked == true && operatorClicked == false) {
         display();
         displayPrevious.innerHTML = ``;
     }
+
     else {
         equalClicked = false;
-        firstVariable = firstVariable.slice(0, -1);
+        cutLast()
         display();
     }
 })
 
-// clear:
+// cutLast function:
+
+function cutLast() {
+    firstVariable = firstVariable.slice(0, -1);
+
+}
+
+// clear function:
+
+clearButton.addEventListener("click", () => clear());
 
 function clear() {
     firstVariable = "0";
@@ -182,4 +175,29 @@ function clear() {
     display();
 }
 
-clearButton.addEventListener("click", () => clear());
+// disableButtons function:
+
+function disableButtons() {
+    if (firstVariable == "ERROR") {
+        equalButton.disabled = true;
+        Array.from(operatorButtons).forEach(button => button.disabled = true);
+    }
+    else {
+        equalButton.disabled = false;
+        Array.from(operatorButtons).forEach(button => button.disabled = false);
+    }
+
+    if (firstVariable.includes(".") == true) pointButton.disabled = true
+    else pointButton.disabled = false;
+}
+
+// inputMisc function (see input):
+
+function inputOperatorMisc(displayBoolean, btn){
+    operator = btn.textContent;
+    secondVariable = firstVariable;
+    if (displayBoolean == true) display();
+    tempVariableTwo = firstVariable;
+    firstVariable = "";
+    operatorClicked = true;
+}
