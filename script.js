@@ -8,10 +8,11 @@
 // the previous display should show nothing after the operator DONE
 
 
-// TODO 3.25 equal one variable without operator and second variable return that variable
-// TODO 3.3 backspace behaviour = should return the same number if no operator present
+// TODO 3.25 equal one variable without operator and second variable return that variable DONE;
+// TODO 3.3 backspace behavior = should return the same number if no operator present DONE;
 // TODO 3.5: add limit to variables;
 // TODO4: line 60 - revise?
+// TODO5: revise display - break it into some functions?
 
 // variables:
 
@@ -155,10 +156,16 @@ equalButton.addEventListener("click", () => equal());
 // backspace:
 
 backspaceButton.addEventListener("click", () => {
-    if (equalClicked == true && operatorClicked == false) clear();
-    equalClicked = false;
-    firstVariable = firstVariable.slice(0, -1);
-    display();
+    if (firstVariable == "ERROR") clear()
+    else if (equalClicked == true && operatorClicked == false) {
+        display();
+        displayPrevious.innerHTML = ``;
+    }
+    else {
+        equalClicked = false;
+        firstVariable = firstVariable.slice(0, -1);
+        display();
+    }
 })
 
 // clear:
