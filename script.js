@@ -3,6 +3,11 @@
 // TODO2.5: adjust equal behavior DONE
 // TODO3: disable forbidden buttons (point, disable all on error?) DONE
 // TODO 3.25 anything else on error? DONE
+
+// TODO 3.21 after equal and new operator being pressed, 
+// the previous display should show nothing after the operator DONE
+
+// TODO 3.3 backspace behaviour = should return the same number if no operator present
 // TODO 3.5: add limit to variables;
 // TODO4: line 60 - revise?
 
@@ -87,7 +92,12 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
 // input operator:
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
+    if (equalClicked == true) {
+        tempVariable = "";
+    }
+
     equalClicked = false;
+
     if (operatorClicked == true && numberClicked == true) {
         equal();
         operator = button.textContent;
@@ -97,7 +107,9 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
         operatorClicked = true;
         return
     }
+
     else if (operatorClicked == true) firstVariable = tempVariableTwo;
+
     operator = button.textContent;
     secondVariable = firstVariable;
     display();
