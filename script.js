@@ -1,3 +1,6 @@
+//TODO1: points can be pressed several times via keyboard
+//TODO2: if i clear and then use enter via keyboard - it doesn't work;
+
 // variables:
 
 let firstVariable = "0";
@@ -56,6 +59,9 @@ display();
 // input numbers:
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => inputNumbers(button)))
+Array.from(numberButtons).forEach((button) => document.addEventListener("keydown", (event) => {
+    if (event.key == button.textContent) inputNumbers(button);
+}))
 
 function inputNumbers(button){
     if (equalClicked == true && operatorClicked == false) clear();
@@ -74,6 +80,12 @@ function inputNumbers(button){
 // input operator:
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => inputOperator(button)));
+Array.from(operatorButtons).forEach((button) => document.addEventListener("keydown", (event) => {
+    if (event.key == button.textContent) {
+        event.preventDefault();
+        inputOperator(button)
+    }
+}))
 
 function inputOperator(button) {
     if (equalClicked == true) {
@@ -96,6 +108,9 @@ function inputOperator(button) {
 // equal function:
 
 equalButton.addEventListener("click", () => equal());
+document.addEventListener("keydown", (event) => {
+    if (event.key == "Enter") equal();
+});
 
 function equal(){
     if (firstVariable == NaN || firstVariable == undefined || firstVariable == "") firstVariable = secondVariable;
@@ -123,7 +138,10 @@ function equal(){
 
 // backspace:
 
-backspaceButton.addEventListener("click", () => backspace())
+backspaceButton.addEventListener("click", () => backspace());
+document.addEventListener("keydown", (event) => {
+    if (event.key == "Backspace") backspace();
+});
 
 function backspace() {
     if (firstVariable == "ERROR") clear()
@@ -157,6 +175,7 @@ function clear() {
     operator = "";
     tempVariable = "";
     tempVariableTwo = "";
+    tempVariableThree = "";
     equalClicked = false;
     operatorClicked = false;
     numberClicked = false;
