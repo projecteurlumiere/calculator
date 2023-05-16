@@ -1,6 +1,6 @@
 // TODO: zero cannot be in the beginning DONE
 // TODO2: zero at the start of the program DONE
-// TODO2.5: adjust equal behavior
+// TODO2.5: adjust equal behavior DONE
 // TODO3: disable forbidden buttons (point, disable all on error?)
 // TODO4: line 60 - revise?
 
@@ -21,6 +21,7 @@ const displayPrevious = document.getElementsByClassName("previous")[0];
 const displayCurrent = document.getElementsByClassName("current")[0];
 const equalButton = document.getElementById("equal");
 const clearButton = document.getElementById("clear");
+const pointButton = document.getElementById("point");
 const backspaceButton = document.getElementById("backspace");
 
 
@@ -52,6 +53,7 @@ display();
 // input numbers:
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => {
+    if (equalClicked == true) clear();
     equalClicked = false;
     if (firstVariable == "0" && button.textContent !=".") {
         firstVariable = firstVariable.slice(0, -1);
@@ -67,6 +69,7 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
 
 Array.from(operatorButtons).forEach((button) => button.addEventListener("click", () => {
     equalClicked = false;
+    numberClicked = false;
     if (operatorClicked == true && numberClicked == true) {
         equal();
         operator = button.textContent;
@@ -130,7 +133,7 @@ backspaceButton.addEventListener("click", () => {
 
 // clear:
 
-clearButton.addEventListener("click", () => {
+function clear() {
     firstVariable = "0";
     secondVariable = "";
     operator = "";
@@ -140,4 +143,6 @@ clearButton.addEventListener("click", () => {
     operatorClicked = false;
     numberClicked = false;
     display();
-});
+}
+
+clearButton.addEventListener("click", () => clear());
