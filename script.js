@@ -1,7 +1,8 @@
 // TODO: zero cannot be in the beginning DONE
 // TODO2: zero at the start of the program DONE
 // TODO2.5: adjust equal behavior DONE
-// TODO3: disable forbidden buttons (point, disable all on error?)
+// TODO3: disable forbidden buttons (point, disable all on error?) DONE
+// TODO 3.25 anything else on error? DONE
 // TODO 3.5: add limit to variables;
 // TODO4: line 60 - revise?
 
@@ -47,6 +48,15 @@ function display(){
     if (firstVariable.length == 0) firstVariable = "0";
 
     displayCurrent.innerHTML = firstVariable;
+
+    if (firstVariable == "ERROR") {
+        equalButton.disabled = true;
+        Array.from(operatorButtons).forEach(button => button.disabled = true);
+    }
+    else {
+        equalButton.disabled = false;
+        Array.from(operatorButtons).forEach(button => button.disabled = false);
+    }
 
     if (firstVariable.includes(".") == true) pointButton.disabled = true
     else pointButton.disabled = false;
