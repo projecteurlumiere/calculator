@@ -1,5 +1,4 @@
 //TODO1: points can be pressed several times via keyboard
-//TODO2: if i clear and then use enter via keyboard - it doesn't work;
 
 // variables:
 
@@ -171,6 +170,12 @@ function cutLast() {
 // clear function:
 
 clearButton.addEventListener("click", () => clear());
+document.addEventListener("keydown", (event) => {
+    if (event.key == "Escape" || event.key == "Delete") {
+        event.preventDefault();
+        clear();
+    }
+});
 
 function clear() {
     firstVariable = "0";
