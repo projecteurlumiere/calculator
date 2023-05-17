@@ -88,6 +88,8 @@ Array.from(operatorButtons).forEach((button) => document.addEventListener("keydo
 }))
 
 function inputOperator(button) {
+    cutPoint();
+
     if (equalClicked == true) {
         tempVariable = "";
     }
@@ -117,6 +119,8 @@ document.addEventListener("keydown", (event) => {
 
 function equal(){
     if (firstVariable == NaN || firstVariable == undefined || firstVariable == "") firstVariable = secondVariable;
+    
+    cutPoint();
 
     if (equalClicked == true) {
         tempVariable = tempVariableThree;
@@ -168,6 +172,12 @@ function cutLast() {
 
 }
 
+// cutPoint function: 
+
+function cutPoint(){
+    if (firstVariable.slice(-1) == ".") cutLast();
+}
+
 // clear function:
 
 clearButton.addEventListener("click", () => clear());
@@ -203,7 +213,7 @@ function disableButtons() {
         Array.from(operatorButtons).forEach(button => button.disabled = false);
     }
 
-    if (firstVariable.includes(".") == true) pointButton.disabled = true
+    if (firstVariable.includes(".") == true) pointButton.disabled = true;
     else pointButton.disabled = false;
 }
 
