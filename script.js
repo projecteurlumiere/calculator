@@ -109,7 +109,10 @@ function inputOperator(button) {
 
 equalButton.addEventListener("click", () => equal());
 document.addEventListener("keydown", (event) => {
-    if (event.key == "Enter") equal();
+    if (event.key == "Enter") {
+        event.preventDefault(); // prevents: as soon as you click button, subsequent enter clicks this button too
+        equal();
+    }
 });
 
 function equal(){
