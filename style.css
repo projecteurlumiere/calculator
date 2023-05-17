@@ -3,6 +3,21 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: japaneseFont;
+    src: url(fonts/DarumadropOne-Regular.ttf);
+}
+
+@font-face {
+    font-family: screenFont;
+    src: url(fonts/Silkscreen-Regular.ttf);
+}
+
+html {
+    font-family: japaneseFont;
+    font-size: 11px;
+}
+
 html
 body {
     margin: 0;
@@ -15,7 +30,7 @@ header {
     align-items: center;
     width: 100vw;
     height: 10vh;
-    background-color: aquamarine;
+    background-color: #A5DEE5;
 }
 
 h1 {
@@ -28,29 +43,39 @@ main {
     align-items: center;
     padding-top: 5vh;
     padding-bottom: 50vh;
-    background-color: palevioletred;
+    background-color: #E0F9B5;
 }
 
 .calculator {
     display: flex;
     flex-direction: column;
-    padding: 1rem;
-    background-color: antiquewhite;
-    border: solid 10px rosybrown;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem 5rem 3.5rem 5rem;
+    background-color: #FFCFDF;
+    border: solid 10px #d3c8cc;
+    border-radius: 50% 50% 40% 40%;
+}
+
+.brand {
+    font-size: 1.5rem;
+    margin: 1rem;
 }
 
 .screen {
     display: flex;
     flex-direction: column;
-    border: solid 1px red;
+    font-family: screenFont;
+    border: solid 5px #FEFDCA;
     border-radius: 15px;
     margin-bottom: 1rem;
+    background-color: gainsboro;
 }
 
 .previous,
 .current {
-    height: 5rem;
-    width: 20rem;
+    height: 4rem;
+    width: 16rem;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -68,6 +93,15 @@ main {
 
 }
 
+.input {
+    height: 21rem;
+    width: 18rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 .rowsTop > div,
 .rowsBottomLeft > div {
     display: flex;
@@ -79,24 +113,57 @@ main {
 }
 
 button {
-    width: 5rem;
-    height: 5rem;
-    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: japaneseFont;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-color: black;
+    border-radius: 50%;
+    background-color: #FEFDCA;
     font-size: 2rem;
+    margin: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.operator {
+    background-color: #ffc7a1;
+}
+
+#clear,
+#backspace {
+    background-color: #f7906d;
 }
 
 #zero {
-    height: 5rem;
-    width: 10rem;
+    height: 3.5rem;
+    width: 8rem;
+    font-size: 2rem;
+    margin: 0.5rem;
+    border-radius: 45%;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
 }
 
 #equal {
-    height: 10rem;
-    width: 5rem;
+    height: 8rem;
+    width: 3.5rem;
+    font-size: 2rem;
+    margin: 0.5rem;
+    border-radius: 45%;
+    background-color: #ffc7a1;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
 }
 
 #point:disabled {
     pointer-events: all;
+}
+
+.make {
+    font-size: 1rem;
 }
 
 footer {

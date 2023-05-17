@@ -128,7 +128,6 @@ function equal(){
         firstVariable = tempVariableThree;
         firstVariable = operate(secondVariable, operator, firstVariable);
         display();
-
     }
     else {
         tempVariable = firstVariable;
