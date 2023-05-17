@@ -1,5 +1,3 @@
-//TODO1: points can be pressed several times via keyboard
-
 // variables:
 
 let firstVariable = "0";
@@ -40,6 +38,8 @@ function display(){
     firstVariable = firstVariable.toString();
     if (firstVariable.length == 0) firstVariable = "0";
 
+    if (firstVariable == ".") firstVariable = "0.";
+
     displayCurrent.innerHTML = firstVariable;
 
     disableButtons();
@@ -59,7 +59,8 @@ display();
 
 Array.from(numberButtons).forEach((button) => button.addEventListener("click", () => inputNumbers(button)))
 Array.from(numberButtons).forEach((button) => document.addEventListener("keydown", (event) => {
-    if (event.key == button.textContent) inputNumbers(button);
+    if (event.key == "." && pointButton.disabled == true) return;
+    else if (event.key == button.textContent) inputNumbers(button);
 }))
 
 function inputNumbers(button){
