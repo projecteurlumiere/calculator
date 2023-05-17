@@ -176,6 +176,7 @@ function cutLast() {
 
 function cutPoint(){
     if (firstVariable.slice(-1) == ".") cutLast();
+    if (firstVariable == 0 && firstVariable.includes("0")) firstVariable = 0;
 }
 
 // clear function:
