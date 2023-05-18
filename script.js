@@ -3,12 +3,12 @@
 let firstVariable = "0";
 let secondVariable = "";
 let operator = "";
-let tempVariable = "";
-let tempVariableTwo = "";
-let tempVariableThree = "";
+let tempVariable = ""; // everywhere
+let tempVariableTwo = ""; // in inputOperator() & inputOperatorMisc()
+let tempVariableThree = ""; // in equal()
 let tempInteger; // in checkInput()
 let decimal; // in checkInput()
-let firstVariablePositive // in checkInput();
+let firstVariablePositive // in checkInput()
 let operatorClicked = false;
 let equalClicked = false;
 let numberClicked = false;
@@ -33,7 +33,7 @@ function operate(a, operator, b){
     operator === "/" ? a / b :
     operator === "" ? b :
     "ERROR"
-}
+};
 
 // display function:
 
@@ -45,12 +45,14 @@ function display(){
     disableButtons();
 
     displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable}`;
+    
     if (equalClicked == true) {
         displayPrevious.innerHTML = `${secondVariable} ${operator} ${tempVariable} =`;
-    }
+    };
+
     if (operator == "" && firstVariable == secondVariable) {
         displayPrevious.innerHTML = `${secondVariable} =`
-    }
+    };
 };
 
 display();
@@ -61,7 +63,7 @@ Array.from(numberButtons).forEach((button) => button.addEventListener("click", (
 Array.from(numberButtons).forEach((button) => document.addEventListener("keydown", (event) => {
     if (event.key == "." && pointButton.disabled == true) return;
     else if (event.key == button.textContent) inputNumbers(button);
-}))
+}));
 
 function inputNumbers(button){
     if (equalClicked == true && operatorClicked == false) clear();
@@ -70,12 +72,12 @@ function inputNumbers(button){
 
     if (firstVariable == "0" && button.textContent !=".") {
         cutLast();
-    }
+    };
 
     firstVariable += button.textContent;
     display();
     numberClicked = true;
-}
+};
 
 // input operator:
 
@@ -83,9 +85,9 @@ Array.from(operatorButtons).forEach((button) => button.addEventListener("click",
 Array.from(operatorButtons).forEach((button) => document.addEventListener("keydown", (event) => {
     if (event.key == button.textContent) {
         event.preventDefault();
-        inputOperator(button)
-    }
-}))
+        inputOperator(button);
+    };
+}));
 
 function inputOperator(button) {
     
@@ -93,21 +95,20 @@ function inputOperator(button) {
 
     if (equalClicked == true) {
         tempVariable = "";
-    }
+    };
 
     if (operatorClicked == true && numberClicked == true && equalClicked == false) {
         equal();
         inputOperatorMisc(false, button);
         return
     }
-
     else if (operatorClicked == true) firstVariable = tempVariableTwo;
 
     numberClicked = false;
     equalClicked = false;
 
     inputOperatorMisc(true, button);
-}
+};
 
 // equal function:
 
@@ -116,7 +117,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key == "Enter") {
         event.preventDefault(); // prevents: as soon as you click button, subsequent enter clicks this button too
         equal();
-    }
+    };
 });
 
 function equal(){
@@ -141,7 +142,7 @@ function equal(){
         tempVariableThree = tempVariable;
         tempVariable = "";
         secondVariable = firstVariable;
-    }
+    };
 };
 
 // backspace:
@@ -161,24 +162,24 @@ function backspace() {
 
     else {
         equalClicked = false;
-        cutLast()
+        cutLast();
         display();
-    }
-}
+    };
+};
 
 // cutLast function:
 
 function cutLast() {
     firstVariable = firstVariable.slice(0, -1);
 
-}
+};
 
 // cutPoint function: 
 
 function cutPoint(){
     if (firstVariable.slice(-1) == ".") cutLast();
     if (firstVariable == 0 && firstVariable.includes("0")) firstVariable = 0;
-}
+};
 
 // clear function:
 
@@ -187,7 +188,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key == "Escape" || event.key == "Delete") {
         event.preventDefault();
         clear();
-    }
+    };
 });
 
 function clear() {
@@ -201,7 +202,7 @@ function clear() {
     operatorClicked = false;
     numberClicked = false;
     display();
-}
+};
 
 // checkInput:
 
@@ -218,22 +219,26 @@ function checkInput(){
         else if (firstVariable > 99999999) firstVariable = "TOO MUCH";
         else if (firstVariable > -9999999 && firstVariable < 99999999) {
             firstVariable = parseFloat(firstVariable, 10);
+            
             if (firstVariable >= 0) firstVariablePositive = true;
             else firstVariablePositive = false;
+
             integer = Math.round(firstVariable);
             decimal = firstVariable - integer;
+            
             integer = integer.toString();
             decimal = Math.round(decimal * (10 ** getDisplayRemainingSpace(8, integer, firstVariablePositive))) 
             / (10 ** getDisplayRemainingSpace(8, integer, firstVariablePositive)); 
+
             integer = parseFloat(integer, 10);
             decimal = parseFloat(decimal, 10);
+
             firstVariable = integer + decimal;
             firstVariable = firstVariable.toString();
-        }
+        };
     }
     else if (firstVariable.length == 9) cutLast();
-
-}
+};
 
 // disableButtons function:
 
@@ -245,11 +250,11 @@ function disableButtons() {
     else {
         equalButton.disabled = false;
         Array.from(operatorButtons).forEach(button => button.disabled = false);
-    }
+    };
 
     if (firstVariable.includes(".")) pointButton.disabled = true;
     else pointButton.disabled = false;
-}
+};
 
 // inputMisc function (see input):
 
@@ -260,11 +265,11 @@ function inputOperatorMisc(displayBoolean, btn){
     tempVariableTwo = firstVariable;
     firstVariable = "";
     operatorClicked = true;
-}
+};
 
 //getDisplayRemainingSpace
 
 function getDisplayRemainingSpace(spaces, integer, isPositive) {
     return isPositive == true ? spaces - integer.length - 1 :
     spaces - integer.length;
-}
+};
