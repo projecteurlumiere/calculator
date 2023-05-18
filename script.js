@@ -38,6 +38,11 @@ function display(){
     firstVariable = firstVariable.toString();
     if (firstVariable.length == 0) firstVariable = "0";
 
+    if (equalClicked == true && firstVariable.length > 8 == true) {
+        firstVariable = Math.round(firstVariable + 1000000) - 1000000;
+    }
+    else if (firstVariable.length == 9) cutLast();
+
     if (firstVariable == ".") firstVariable = "0.";
 
     displayCurrent.innerHTML = firstVariable;
@@ -88,21 +93,23 @@ Array.from(operatorButtons).forEach((button) => document.addEventListener("keydo
 }))
 
 function inputOperator(button) {
+    
     cutPoint();
 
     if (equalClicked == true) {
         tempVariable = "";
     }
 
-    equalClicked = false;
-
-    if (operatorClicked == true && numberClicked == true) {
+    if (operatorClicked == true && numberClicked == true && equalClicked == false) {
         equal();
         inputOperatorMisc(false, button);
         return
     }
 
     else if (operatorClicked == true) firstVariable = tempVariableTwo;
+
+    numberClicked = false;
+    equalClicked = false;
 
     inputOperatorMisc(true, button);
 }
