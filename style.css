@@ -141,7 +141,7 @@ button {
     width: var(--button-size);
     height: var(--button-size);
     border-width: 5px;
-    border-color: black;
+    border-color: #b2abae;
     border-radius: 50%;
     background-color: #ffe5da;
     font-size: 2rem;
