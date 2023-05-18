@@ -6,6 +6,9 @@ let operator = "";
 let tempVariable = "";
 let tempVariableTwo = "";
 let tempVariableThree = "";
+let tempInteger; // in checkInput()
+let decimal; // in checkInput()
+let firstVariablePositive // in checkInput();
 let operatorClicked = false;
 let equalClicked = false;
 let numberClicked = false;
@@ -205,16 +208,31 @@ function clear() {
 function checkInput(){
     firstVariable = firstVariable.toString();
     if (firstVariable.length == 0) firstVariable = "0";
+
+    if (firstVariable == ".") firstVariable = "0.";
     
     if (equalClicked == true && firstVariable.length > 8) {
-        if (firstVariable.slice(0, 1) == "-") {
+        if (firstVariable < -9999999) {
             firstVariable = "TOO LOW";
         }
-        else if (firstVariable.slice(1) != "-") firstVariable = "TOO MUCH";
+        else if (firstVariable > 99999999) firstVariable = "TOO MUCH";
+        else if (firstVariable > -9999999 && firstVariable < 99999999) {
+            firstVariable = parseFloat(firstVariable, 10);
+            if (firstVariable >= 0) firstVariablePositive = true;
+            else firstVariablePositive = false;
+            integer = Math.round(firstVariable);
+            decimal = firstVariable - integer;
+            integer = integer.toString();
+            decimal = Math.round(decimal * (10 ** getDisplayRemainingSpace(8, integer, firstVariablePositive))) 
+            / (10 ** getDisplayRemainingSpace(8, integer, firstVariablePositive)); 
+            integer = parseFloat(integer, 10);
+            decimal = parseFloat(decimal, 10);
+            firstVariable = integer + decimal;
+            firstVariable = firstVariable.toString();
+        }
     }
     else if (firstVariable.length == 9) cutLast();
 
-    if (firstVariable == ".") firstVariable = "0.";
 }
 
 // disableButtons function:
@@ -242,4 +260,11 @@ function inputOperatorMisc(displayBoolean, btn){
     tempVariableTwo = firstVariable;
     firstVariable = "";
     operatorClicked = true;
+}
+
+//getDisplayRemainingSpace
+
+function getDisplayRemainingSpace(spaces, integer, isPositive) {
+    return isPositive == true ? spaces - integer.length - 1 :
+    spaces - integer.length;
 }
