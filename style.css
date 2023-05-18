@@ -106,7 +106,7 @@ main {
 .previous {
     height: 2.5rem;
     font-size: calc(2.5rem/3);
-    color: gray;
+    color: black;
 }
 
 .current {

@@ -35,16 +35,8 @@ function operate(a, operator, b){
 // display function:
 
 function display(){
-    firstVariable = firstVariable.toString();
-    if (firstVariable.length == 0) firstVariable = "0";
-
-    if (equalClicked == true && firstVariable.length > 8 == true) {
-        firstVariable = Math.round(firstVariable + 1000000) - 1000000;
-    }
-    else if (firstVariable.length == 9) cutLast();
-
-    if (firstVariable == ".") firstVariable = "0.";
-
+    checkInput();
+    
     displayCurrent.innerHTML = firstVariable;
 
     disableButtons();
@@ -157,7 +149,7 @@ document.addEventListener("keydown", (event) => {
 });
 
 function backspace() {
-    if (firstVariable == "ERROR") clear()
+    if (equalButton.disabled = true) clear()
 
     else if (equalClicked == true && operatorClicked == false) {
         display();
@@ -208,10 +200,27 @@ function clear() {
     display();
 }
 
+// checkInput:
+
+function checkInput(){
+    firstVariable = firstVariable.toString();
+    if (firstVariable.length == 0) firstVariable = "0";
+    
+    if (equalClicked == true && firstVariable.length > 8) {
+        if (firstVariable.slice(0, 1) == "-") {
+            firstVariable = "TOO LOW";
+        }
+        else if (firstVariable.slice(1) != "-") firstVariable = "TOO MUCH";
+    }
+    else if (firstVariable.length == 9) cutLast();
+
+    if (firstVariable == ".") firstVariable = "0.";
+}
+
 // disableButtons function:
 
 function disableButtons() {
-    if (firstVariable == "ERROR") {
+    if (firstVariable == "ERROR" || firstVariable == "TOO MUCH" || firstVariable == "TOO LOW") {
         equalButton.disabled = true;
         Array.from(operatorButtons).forEach(button => button.disabled = true);
     }
@@ -220,7 +229,7 @@ function disableButtons() {
         Array.from(operatorButtons).forEach(button => button.disabled = false);
     }
 
-    if (firstVariable.includes(".") == true) pointButton.disabled = true;
+    if (firstVariable.includes(".")) pointButton.disabled = true;
     else pointButton.disabled = false;
 }
 
